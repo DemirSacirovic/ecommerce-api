@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.routers import users, products
 
 app = FastAPI(title="E-commerce API", description="Learning project for backend development", version="1.0.0")
 
@@ -8,6 +8,9 @@ app = FastAPI(title="E-commerce API", description="Learning project for backend 
 #ZASTO: CORS - dozvoljava frontendu da pozova nas api 
 # Bez ovoga browser blokira requests
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],)
+
+app.include_router(users.router)
+app.include_router(products.router)
 
 #ZASTO: Health check endpoint - da proveris da li API radi
 @app.get("/")
